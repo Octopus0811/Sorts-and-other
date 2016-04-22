@@ -10,20 +10,22 @@ void SheickerSort   (int data [], int Size);
 void Exchange       (int data [],           int i);
 int  Min            (int data [], int Size, int start);
 void SelectionSort  (int data [], int Size);
+void InsertionSort  (int data [], int Size);
+int  Place          (int data [],           int sorted);
 
 //-----------------------------------------------------------------------------
 
 int main()
     {
     const int Size = 10;
-    int data [Size] = {};
+    int data [Size] = {18, 30, 41, 5, 22, 45, 43, 15, 5, 29};
 
-    Create        (data, Size, 50);
-    Print         (data, Size);
-    SheickerSort  (data, Size);
-    Print         (data, Size);
+    Print          (data, Size);
+    InsertionSort  (data, Size);
+    Print          (data, Size);
 
-    //printf ("Это минимальная ячейка(3): %d", Min (data , Size, 0));
+    //printf ("Это место для числа: %d\n", Place (data , 5));
+
     return 0;
     }
 
@@ -215,6 +217,57 @@ void SheickerSort (int data [], int Size)
     printf ("\nНо ты настолько глупенький :DDD, что сделал вот столько обменов: %d\n", swaps);
 
     printf ("\nВозьми с полки Нобелевскую премию по аутизму...\n\n\n\n\n"); */
+    }
+
+//-----------------------------------------------------------------------------
+
+void InsertionSort (int data [], int Size)
+    {
+    int sorted = 0;
+    int temp = 0;
+
+    while (temp < Size)
+        {
+        if (data [temp] > data [temp + 1])
+            {
+            sorted = temp;
+            break;
+            }
+        if (temp >= Size)
+            {
+            $f printf ("ВНИМАНИЕ!!! МАССИВ БЫЛ ОТСОРТИРОВАН БЕЗ СОРТИРОВКИ"); $d
+            break;
+            }
+        temp++;
+        }
+
+    while (sorted < Size)
+        {
+        int num = sorted + 1;
+        ROR (data, Place (data, sorted), num);
+        sorted++;
+        }
+    }
+
+//-----------------------------------------------------------------------------
+
+int Place (int data [], int sorted)
+    {
+    int place = sorted;
+    int num = sorted + 1;
+
+    while (true)
+        {
+        if (data [num] > data [place])
+            {
+            return place + 1;
+            }
+        if (place < 0)
+            {
+            return 0;
+            }
+        place --;
+        }
     }
 
 //-----------------------------------------------------------------------------
