@@ -1,0 +1,222 @@
+#include "TXLib.h"
+
+void Print          (int data [], int Size);
+void ROL            (int data [], int first, int last);
+void ROR            (int data [], int first, int last);
+void REV            (int data [], int Size);
+void Create         (int data [], int Size,  int border);
+void BubbleSort     (int data [], int Size);
+void SheickerSort   (int data [], int Size);
+void Exchange       (int data [],           int i);
+int  Min            (int data [], int Size, int start);
+void SelectionSort  (int data [], int Size);
+
+//-----------------------------------------------------------------------------
+
+int main()
+    {
+    const int Size = 10;
+    int data [Size] = {};
+
+    Create        (data, Size, 50);
+    Print         (data, Size);
+    SheickerSort  (data, Size);
+    Print         (data, Size);
+
+    //printf ("Это минимальная ячейка(3): %d", Min (data , Size, 0));
+    return 0;
+    }
+
+//-----------------------------------------------------------------------------
+
+void Print (int data [], int Size)
+    {
+    for (int i = 0; i < Size; i++)
+        printf ("%d ", data[i]);
+
+    printf ("\n");
+    }
+
+//-----------------------------------------------------------------------------
+
+void ROL (int data [], int first, int last)
+    {
+    int i = first;
+    int temp = data [first];
+
+    while (i < last)
+        {
+        data [i] = data [i + 1];
+        i++;
+        }
+    data [last] = temp;
+    }
+
+//-----------------------------------------------------------------------------
+
+void ROR (int data [], int first, int last)
+    {
+    int i = last;
+    int temp = data [last];
+
+    while (i > first)
+        {
+        data [i] = data [i - 1];
+        i--;
+        }
+    data [first] = temp;
+    }
+
+//-----------------------------------------------------------------------------
+
+void Create (int data [], int Size, int border)
+    {
+    srand(time(0));
+    int i = 0;
+
+    while (i < Size)
+        {
+        data [i] = rand() % border;
+        i++;
+        }
+    }
+
+//-----------------------------------------------------------------------------
+
+void Exchange (int data [], int a, int b)
+    {
+    int d = data [a];
+    data [a] = data [b];
+    data [b] = d;
+    }
+
+//-----------------------------------------------------------------------------
+
+void REV (int data [], int Size)
+    {
+    int i = 0;
+    while (i < Size)
+        {
+        Exchange (data, i, i+1);
+        i += 2;
+        }
+    }
+
+ //-----------------------------------------------------------------------------
+
+void BubbleSort (int data [], int Size)
+    {
+    int swaps = 0;
+    int comparisons = 0;
+
+    while (true)
+        {
+        int i = 0;
+        int changes = 0;
+        int compares = 0;
+
+        while (i < Size - 1)
+            {
+            if (data [i]  > data [i+1])
+                {
+                Exchange (data, i, i+1);
+                changes ++;
+                }
+            compares++;
+            i++;
+            }
+        txSleep (0);
+        swaps = swaps + changes;
+        comparisons = comparisons + compares;
+        if (changes == 0) break;
+        }
+
+    /*printf ("\n\nПривет, я Cаймон, и я посчитал количество твоих сравнений: %d", comparisons);
+    printf ("\nНо ты настолько глупенький :DDD, что сделал вот столько обменов: %d\n", swaps);
+
+    printf ("\nВозьми с полки Нобелевскую премию по аутизму...\n\n\n\n\n"); */
+    }
+
+//-----------------------------------------------------------------------------
+
+int Min (int data [], int Size, int start)
+    {
+    int i = start + 1;
+    int min = start;
+
+    while (i < Size)
+        {
+        if (data [i] < data [min])
+            {
+            min = i;
+            }
+        i++;
+        }
+    return min;
+    }
+
+//-----------------------------------------------------------------------------
+
+void SelectionSort (int data [], int Size)
+    {
+    int start = 0;
+
+    while (start < Size - 1)
+        {
+        Exchange (data, Min (data, Size, start), start);
+        start++;
+        }
+    }
+
+//-----------------------------------------------------------------------------
+
+void SheickerSort (int data [], int Size)
+    {
+    int swaps = 0;
+    int comparisons = 0;
+
+    while (true)
+        {
+        int i = 0;
+        int j = Size - 1;
+
+        int changes = 0;
+        int compares = 0;
+
+        while (i < Size - 1)
+            {
+            if (data [i]  > data [i+1])
+                {
+                Exchange (data, i, i+1);
+                changes++;
+                }
+            compares++;
+            i++;
+
+            while (j > 0)
+                {
+                if (data [j] < data [j-1])
+                    {
+                    Exchange (data, j, j-1);
+                    changes++;
+                    }
+                compares++;
+                j--;
+                break;
+                }
+            }
+        txSleep (0);
+        swaps = swaps + changes;
+        comparisons = comparisons + compares;
+        if (changes == 0) break;
+        }
+
+    /*printf ("\n\nПривет, я Cаймон, и я посчитал количество твоих сравнений: %d", comparisons);
+    printf ("\nНо ты настолько глупенький :DDD, что сделал вот столько обменов: %d\n", swaps);
+
+    printf ("\nВозьми с полки Нобелевскую премию по аутизму...\n\n\n\n\n"); */
+    }
+
+//-----------------------------------------------------------------------------
+
+
