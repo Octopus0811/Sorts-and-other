@@ -13,16 +13,17 @@ void SelectionSort  (int data [], int Size);
 void InsertionSort  (int data [], int Size);
 int  Place          (int data [],           int sorted);
 int  BinaryPlace    (int data [],           int left,   int right);
+void QuickSort      (int data [], int left, int right);
 
 //-----------------------------------------------------------------------------
 
 int main()
     {
     const int Size = 10;
-    int data [Size] = {18, 30, 41, 5, 22, 45, 43, 15, 5, 29};//18, 30, 41, 5, 22, 45, 43, 15, 5, 29
+    int data [Size] = {44, 44, 17, 15, 20, 15, 48, 3, 31, 13};//18, 30, 41, 5, 22, 45, 43, 15, 5, 29
 
     Print          (data, Size);
-    InsertionSort  (data, Size);
+    QuickSort      (data, 0, Size - 1);
     Print          (data, Size);
 
     //printf ("Это место для числа: %d\n", BinaryPlace (data , 0, 8));
@@ -299,4 +300,32 @@ int BinaryPlace (int data [], int left, int right)
             return left;
             }
         }
+    }
+
+//-----------------------------------------------------------------------------
+
+void QuickSort(int data [], int left, int right)
+    {
+    int i = left, j = right;
+    int tmp;
+    int mid = (left + right) / 2;
+
+
+    while (i <= j)                             //
+        {                                      //
+        while (data[i] < data [mid]) i++;      //
+        while (data[j] > data [mid]) j--;      //
+        if (i <= j)                            //
+            {                                  //  ДЕЛЕНИЕ
+            Exchange (data, i, j);             //
+            i++;                               //
+            j--;                               //
+            }                                  //
+        }                                      //
+
+
+    if (left < j)                              //
+    QuickSort(data, left, j);                  //  РЕКУРСИЯ
+    if (i < right)                             //
+    QuickSort(data, i, right);                 //
     }
