@@ -12,19 +12,20 @@ int  Min            (int data [], int Size, int start);
 void SelectionSort  (int data [], int Size);
 void InsertionSort  (int data [], int Size);
 int  Place          (int data [],           int sorted);
+int  BinaryPlace    (int data [],           int left,   int right);
 
 //-----------------------------------------------------------------------------
 
 int main()
     {
     const int Size = 10;
-    int data [Size] = {18, 30, 41, 5, 22, 45, 43, 15, 5, 29};
+    int data [Size] = {18, 30, 41, 5, 22, 45, 43, 15, 5, 29};//18, 30, 41, 5, 22, 45, 43, 15, 5, 29
 
     Print          (data, Size);
     InsertionSort  (data, Size);
     Print          (data, Size);
 
-    //printf ("Это место для числа: %d\n", Place (data , 5));
+    //printf ("Это место для числа: %d\n", BinaryPlace (data , 0, 8));
 
     return 0;
     }
@@ -87,9 +88,9 @@ void Create (int data [], int Size, int border)
 
 void Exchange (int data [], int a, int b)
     {
-    int d = data [a];
+    int temp = data [a];
     data [a] = data [b];
-    data [b] = d;
+    data [b] = temp;
     }
 
 //-----------------------------------------------------------------------------
@@ -241,10 +242,11 @@ void InsertionSort (int data [], int Size)
         temp++;
         }
 
-    while (sorted < Size)
+    while (sorted < Size - 1)
         {
         int num = sorted + 1;
         ROR (data, Place (data, sorted), num);
+        Print (data, Size);
         sorted++;
         }
     }
@@ -272,4 +274,29 @@ int Place (int data [], int sorted)
 
 //-----------------------------------------------------------------------------
 
+int BinaryPlace (int data [], int left, int right)
+    {
+    int num = right + 1;
 
+    while (left < right)
+        {
+        int mid = (left + right) / 2;
+
+        if (data [mid] > data [num])
+            {
+            right = mid;
+            }
+        if (data [mid] > data [num])
+            {
+            left = mid;
+            }
+        if (data [mid] = data [num])
+            {
+            left = mid;
+            }
+        if (left >= right)
+            {
+            return left;
+            }
+        }
+    }
